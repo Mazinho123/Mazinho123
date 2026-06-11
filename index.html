@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Profile README Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #080b11;
+      --card-bg: #111622;
+      --border-color: #1f293d;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent-cyan: #00ffcc;
+      --accent-pink: #ff007f;
+      --accent-blue: #3b82f6;
+      --accent-glow: rgba(0, 255, 204, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    header {
+      background: rgba(17, 22, 34, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo span {
+      font-size: 0.8rem;
+      padding: 0.2rem 0.6rem;
+      border: 1px solid var(--accent-cyan);
+      border-radius: 50px;
+      color: var(--accent-cyan);
+      text-shadow: 0 0 8px var(--accent-glow);
+    }
+
+    .main-container {
+      display: grid;
+      grid-template-columns: 450px 1fr;
+      flex: 1;
+      height: calc(100vh - 65px);
+    }
+
+    /* Editor Sidebar */
+    .sidebar {
+      background-color: #0b0f19;
+      border-right: 1px solid var(--border-color);
+      padding: 1.5rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .input-group label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .input-group input, .input-group textarea, .input-group select {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 0.75rem;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .input-group input:focus, .input-group textarea:focus, .input-group select:focus {
+      outline: none;
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+    }
+
+    /* Tech Stack Grid Selector */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+    }
+
+    .tech-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .tech-item img {
+      width: 24px;
+      height: 24px;
+      margin-bottom: 0.25rem;
+    }
+
+    .tech-item.selected {
+      border-color: var(--accent-cyan);
+      background-color: rgba(0, 255, 204, 0.05);
+      color: var(--accent-cyan);
+      box-shadow: 0 0 8px rgba(0, 255, 204, 0.1);
+    }
+
+    /* Content Area */
+    .content-area {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      overflow: hidden;
+      background-color: var(--bg-color);
+    }
+
+    .pane-header {
+      background-color: #0b0f19;
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .pane-header h3 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+    }
+
+    .btn {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn:hover {
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+      box-shadow: 0 0 10px rgba(0, 255, 204, 0.15);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+      border: none;
+      color: #050811;
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
+      color: #050811;
+    }
+
+    /* Live Preview Panel */
+    .preview-panel {
+      overflow-y: auto;
+      padding: 2rem;
+      background-color: #0d1117; /* GitHub Dark BG */
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    /* Mimic GitHub Style in Preview */
+    .github-preview {
+      max-width: 850px;
+      margin: 0 auto;
+      color: #c9d1d9;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    .github-preview h1, .github-preview h2, .github-preview h3 {
+      border-bottom: 1px solid #21262d;
+      padding-bottom: 0.3em;
+      margin-top: 24px;
+      margin-bottom: 16px;
+      font-weight: 600;
+      color: #e6edf3;
+    }
+
+    .github-preview h1 { font-size: 2em; }
+    .github-preview h2 { font-size: 1.5em; }
+
+    .github-preview hr {
+      height: 0.25em;
+      padding: 0;
+      margin: 24px 0;
+      background-color: #30363d;
+      border: 0;
+    }
+
+    .github-preview code {
+      padding: 0.2em 0.4em;
+      margin: 0;
+      font-size: 85%;
+      background-color: rgba(110,118,129,0.4);
+      border-radius: 6px;
+      font-family: ui-monospace, SFMono-Regular, SF Pro Text, Menlo, monospace;
+    }
+
+    .github-preview pre {
+      padding: 16px;
+      overflow: auto;
+      font-size: 85%;
+      line-height: 1.45;
+      background-color: #161b22;
+      border-radius: 6px;
+      color: #e6edf3;
+    }
+
+    .github-preview pre code {
+      background-color: transparent;
+      padding: 0;
+    }
+
+    .github-preview ul {
+      padding-left: 2em;
+      margin-bottom: 16px;
+    }
+
+    .github-preview li {
+      margin-top: 0.25em;
+    }
+
+    .github-preview table {
+      border-spacing: 0;
+      border-collapse: collapse;
+      margin-top: 0;
+      margin-bottom: 16px;
+      width: 100%;
+    }
+
+    .github-preview table th, .github-preview table td {
+      padding: 6px 13px;
+      border: 1px solid #30363d;
+    }
+
+    .github-preview table tr {
+      background-color: #0d1117;
+      border-top: 1px solid #21262d;
+    }
+
+    /* Code Output Panel */
+    .code-panel {
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      background-color: #090d16;
+    }
+
+    .code-editor-container {
+      position: relative;
+      height: 100%;
+    }
+
+    .code-output {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background-color: #06090f;
+      color: #a5d6ff;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      padding: 1.5rem;
+      resize: none;
+      outline: none;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--accent-cyan);
+      color: #050811;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0, 255, 204, 0.3);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 1000;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #080b11;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1f293d;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #2d3b58;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">🧬 README.studio <span>V1.0</span></div>
+    <div style="display: flex; gap: 1rem;">
+      <button class="btn" id="save-local-btn">💾 Save to README.md</button>
+      <button class="btn btn-primary" id="copy-markdown-btn">📋 Copy Code</button>
+    </div>
+  </header>
+
+  <div class="main-container">
+    
+    <!-- Sidebar Controls -->
+    <div class="sidebar">
+      
+      <div>
+        <div class="section-title">👤 Profile Details</div>
+        
+        <div class="input-group">
+          <label for="username">GitHub Username</label>
+          <input type="text" id="username" value="octocat" placeholder="e.g., octocat">
+        </div>
+
+        <div class="input-group">
+          <label for="full-name">Full Name</label>
+          <input type="text" id="full-name" value="Alex Mercer" placeholder="Your Name">
+        </div>
+
+        <div class="input-group">
+          <label for="role">Role / Headline</label>
+          <input type="text" id="role" value="Full Stack Software Engineer" placeholder="e.g. Front-end Dev">
+        </div>
+
+        <div class="input-group">
+          <label for="location">Location</label>
+          <input type="text" id="location" value="San Francisco, CA" placeholder="e.g. London, UK">
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">🖼️ Custom Media & GIF</div>
+        
+        <div class="input-group">
+          <label for="gif-path">GIF or Banner File Path / URL</label>
+          <input type="text" id="gif-path" value="./assets/profile-placeholder.png" placeholder="e.g. ./assets/my-gif.gif or absolute URL">
+          <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">
+            Place your custom GIF in your repo's <code>assets</code> folder and specify its relative path here.
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">💬 About Me Bulletins</div>
+        
+        <div class="input-group">
+          <label for="current-project">Current Project</label>
+          <input type="text" id="current-project" value="Building a next-gen web platform 🚀">
+        </div>
+
+        <div class="input-group">
+          <label for="learning">Currently Learning</label>
+          <input type="text" id="learning" value="WebAssembly, Rust, and WebGPU">
+        </div>
+
+        <div class="input-group">
+          <label for="collab">Looking to Collaborate on</label>
+          <input type="text" id="collab" value="Open source developer utilities">
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">🛠️ Tech Stack</div>
+        <div class="tech-grid">
+          <div class="tech-item selected" data-tech="html"><img src="https://skillicons.dev/icons?i=html" alt="HTML">HTML</div>
+          <div class="tech-item selected" data-tech="css"><img src="https://skillicons.dev/icons?i=css" alt="CSS">CSS</div>
+          <div class="tech-item selected" data-tech="js"><img src="https://skillicons.dev/icons?i=js" alt="JS">JavaScript</div>
+          <div class="tech-item selected" data-tech="ts"><img src="https://skillicons.dev/icons?i=ts" alt="TS">TypeScript</div>
+          <div class="tech-item selected" data-tech="react"><img src="https://skillicons.dev/icons?i=react" alt="React">React</div>
+          <div class="tech-item selected" data-tech="nextjs"><img src="https://skillicons.dev/icons?i=nextjs" alt="Next">Next.js</div>
+          <div class="tech-item selected" data-tech="tailwind"><img src="https://skillicons.dev/icons?i=tailwind" alt="Tailwind">Tailwind</div>
+          <div class="tech-item selected" data-tech="nodejs"><img src="https://skillicons.dev/icons?i=nodejs" alt="Node">Node.js</div>
+          <div class="tech-item selected" data-tech="postgres"><img src="https://skillicons.dev/icons?i=postgres" alt="Postgres">Postgres</div>
+          <div class="tech-item selected" data-tech="mongodb"><img src="https://skillicons.dev/icons?i=mongodb" alt="Mongo">MongoDB</div>
+          <div class="tech-item selected" data-tech="python"><img src="https://skillicons.dev/icons?i=python" alt="Python">Python</div>
+          <div class="tech-item selected" data-tech="docker"><img src="https://skillicons.dev/icons?i=docker" alt="Docker">Docker</div>
+          <div class="tech-item selected" data-tech="git"><img src="https://skillicons.dev/icons?i=git" alt="Git">Git</div>
+          <div class="tech-item selected" data-tech="github"><img src="https://skillicons.dev/icons?i=github" alt="GitHub">GitHub</div>
+          <div class="tech-item selected" data-tech="vscode"><img src="https://skillicons.dev/icons?i=vscode" alt="VSCode">VSCode</div>
+          <div class="tech-item" data-tech="figma"><img src="https://skillicons.dev/icons?i=figma" alt="Figma">Figma</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">🤝 Connections & Socials</div>
+        
+        <div class="input-group">
+          <label for="linkedin">LinkedIn Username</label>
+          <input type="text" id="linkedin" value="alex-mercer" placeholder="username">
+        </div>
+
+        <div class="input-group">
+          <label for="twitter">Twitter / X Username</label>
+          <input type="text" id="twitter" value="alex_mercer" placeholder="username">
+        </div>
+
+        <div class="input-group">
+          <label for="portfolio">Portfolio URL</label>
+          <input type="text" id="portfolio" value="https://alexmercer.dev" placeholder="URL">
+        </div>
+
+        <div class="input-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" value="alex@example.com" placeholder="email">
+        </div>
+
+        <div class="input-group">
+          <label for="discord">Discord Invite URL/ID</label>
+          <input type="text" id="discord" value="alexmercer#1337" placeholder="Discord link/tag">
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">🎨 Visual Customization</div>
+        <div class="input-group">
+          <label for="stats-theme">GitHub Stats Theme</label>
+          <select id="stats-theme">
+            <option value="tokyonight">Tokyo Night</option>
+            <option value="dracula">Dracula</option>
+            <option value="radical">Radical</option>
+            <option value="material-palenight">Material Palenight</option>
+            <option value="dark">Dark Theme</option>
+            <option value="neon">Cyberpunk Neon</option>
+          </select>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Output Content (Preview & Code) -->
+    <div class="content-area">
+      
+      <!-- Preview Panel -->
+      <div style="display: grid; grid-template-rows: auto 1fr; overflow: hidden; border-bottom: 1px solid var(--border-color);">
+        <div class="pane-header">
+          <h3>🖥️ Real-time Preview</h3>
+        </div>
+        <div class="preview-panel">
+          <div class="github-preview" id="rendered-preview">
+            <!-- Rendered output will go here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Code Block Panel -->
+      <div class="code-panel">
+        <div class="pane-header">
+          <h3>📄 Generated Markdown Code</h3>
+        </div>
+        <div class="code-editor-container">
+          <textarea class="code-output" id="raw-markdown" readonly></textarea>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="toast" id="toast-message">Copied to Clipboard! 🚀</div>
+
+  <script>
+    // Selected Tech Stack State
+    const selectedTech = new Set(['html', 'css', 'js', 'ts', 'react', 'nextjs', 'tailwind', 'nodejs', 'postgres', 'mongodb', 'python', 'docker', 'git', 'github', 'vscode']);
+
+    // Tech stack grid click handlers
+    document.querySelectorAll('.tech-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const tech = item.getAttribute('data-tech');
+        if (selectedTech.has(tech)) {
+          selectedTech.delete(tech);
+          item.classList.remove('selected');
+        } else {
+          selectedTech.add(tech);
+          item.classList.add('selected');
+        }
+        generate();
+      });
+    });
+
+    // Inputs selectors
+    const inputs = [
+      'username', 'full-name', 'role', 'location', 'gif-path',
+      'current-project', 'learning', 'collab',
+      'linkedin', 'twitter', 'portfolio', 'email', 'discord', 'stats-theme'
+    ];
+
+    inputs.forEach(id => {
+      document.getElementById(id).addEventListener('input', generate);
+    });
+    document.getElementById('stats-theme').addEventListener('change', generate);
+
+    // Copy to clipboard
+    document.getElementById('copy-markdown-btn').addEventListener('click', () => {
+      const markdown = document.getElementById('raw-markdown').value;
+      navigator.clipboard.writeText(markdown).then(() => {
+        showToast("Copied to clipboard! 🚀");
+      });
+    });
+
+    // Save to README.md file via Fetch
+    document.getElementById('save-local-btn').addEventListener('click', () => {
+      const markdown = document.getElementById('raw-markdown').value;
+      // Since this runs locally on their filesystem or dev server, we can write a simple endpoint or explain.
+      // We'll prompt a file download of README.md to make it work pure-client side!
+      const blob = new Blob([markdown], { type: 'text/markdown' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'README.md';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast("Downloading README.md! Save it in your directory. 💾");
+    });
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast-message');
+      toast.innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    function generate() {
+      const username = document.getElementById('username').value || '[YOUR_GITHUB_USERNAME]';
+      const fullName = document.getElementById('full-name').value || '[Your Name]';
+      const role = document.getElementById('role').value || '[Your Role]';
+      const location = document.getElementById('location').value || '[Your Location]';
+      const gifPath = document.getElementById('gif-path').value || './assets/profile-placeholder.png';
+      
+      const currentProject = document.getElementById('current-project').value || '';
+      const learning = document.getElementById('learning').value || '';
+      const collab = document.getElementById('collab').value || '';
+
+      const linkedin = document.getElementById('linkedin').value;
+      const twitter = document.getElementById('twitter').value;
+      const portfolio = document.getElementById('portfolio').value;
+      const email = document.getElementById('email').value;
+      const discord = document.getElementById('discord').value;
+      
+      const theme = document.getElementById('stats-theme').value;
+
+      // Build tech stack list split into blocks
+      const techList = Array.from(selectedTech).join(',');
+
+      // Render Markdown
+      let md = `<!--
+========================================================================
+✨ GITHUB PROFILE README GENERATED VIA README.STUDIO ✨
+========================================================================
+-->
+
+<div align="center">
+  
+  <!-- Typing SVG Banner -->
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=24&duration=3500&pause=1000&color=00FFCC&center=true&vCenter=true&width=500&lines=Hi%2C+I'm+${encodeURIComponent(fullName)}!;${encodeURIComponent(role)};Welcome+to+my+digital+universe!" alt="Typing SVG" />
+
+  <p align="center">
+    <img src="https://img.shields.io/github/followers/${username}?label=Followers&style=for-the-badge&color=00FFCC&logo=github" alt="Followers" />
+    <img src="https://img.shields.io/github/stars/${username}?label=Stars&style=for-the-badge&color=FF007F&logo=github" alt="Total Stars" />
+  </p>
+
+  <br />
+
+  <!-- 🖼️ CUSTOM GIF / BANNER SECTION -->
+  <a href="#">
+    <img src="${gifPath}" alt="Featured Workspace Banner" width="85%" style="border-radius: 12px; border: 2px solid #00FFCC; box-shadow: 0px 0px 20px rgba(0, 255, 204, 0.4);" />
+  </a>
+
+</div>
+
+---
+
+## ⚡ About Me
+
+\`\`\`yaml
+identity:
+  name: ${fullName}
+  role: ${role}
+  location: ${location}
+status:
+  current_project: "${currentProject}"
+  learning: "${learning}"
+  collaboration: "${collab}"
+\`\`\`
+
+- 👋 **Greeting:** Welcome! I'm a developer focused on designing premium user interfaces and robust technical implementations.
+- 🎯 **Mission:** Building clean, responsive, and performance-driven applications.
+`;
+
+      if (currentProject) md += `- 🔭 **Current Project:** ${currentProject}\n`;
+      if (learning) md += `- 🌱 **Currently Learning:** ${learning}\n`;
+      if (collab) md += `- 🤝 **Looking to Collaborate on:** ${collab}\n`;
+
+      md += `
+---
+
+## 🛠️ Tech Stack & Capabilities
+
+<p align="left">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=${techList || 'js,ts,react'}" alt="My Tech Stack" />
+  </a>
+</p>
+
+---
+
+## 📊 Analytics & Metrics
+
+<div align="center">
+  <table border="0">
+    <tr>
+      <td width="50%" align="center">
+        <a href="https://github.com/anuraghazra/github-readme-stats">
+          <img src="https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&theme=${theme}&hide_border=false&count_private=true&include_all_commits=true" alt="GitHub Stats" width="100%" />
+        </a>
+      </td>
+      <td width="50%" align="center">
+        <a href="https://github.com/anuraghazra/github-readme-stats">
+          <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=${username}&layout=compact&theme=${theme}&hide_border=false" alt="Top Langs" width="100%" />
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center">
+        <br />
+        <a href="https://github.com/danielcranney/readme-generator">
+          <img src="https://github-readme-streak-stats.herokuapp.com/?user=${username}&theme=${theme}&hide_border=false" alt="GitHub Streak" width="95%" />
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+---
+
+## 🤝 Let's Connect
+
+<p align="center">
+`;
+
+      if (linkedin) {
+        md += `  <a href="https://linkedin.com/in/${linkedin}" target="_blank">
+    <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
+  </a>\n`;
+      }
+      if (twitter) {
+        md += `  <a href="https://twitter.com/${twitter}" target="_blank">
+    <img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Twitter" />
+  </a>\n`;
+      }
+      if (portfolio) {
+        md += `  <a href="${portfolio}" target="_blank">
+    <img src="https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Portfolio" />
+  </a>\n`;
+      }
+      if (email) {
+        md += `  <a href="mailto:${email}" target="_blank">
+    <img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
+  </a>\n`;
+      }
+      if (discord) {
+        md += `  <a href="${discord}" target="_blank">
+    <img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord" />
+  </a>\n`;
+      }
+
+      md += `</p>
+
+---
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/krzysztofzubik/github-readme-stats-terminal-theme/master/assets/mac-bar.png" width="100%" />
+  <p><sub>🚀 Generated via README.studio</sub></p>
+</div>
+`;
+
+      document.getElementById('raw-markdown').value = md;
+
+      // Render Visual Preview in HTML (Simplified Markdown translation for preview panel)
+      let htmlPreview = `
+        <div style="text-align: center; margin-bottom: 20px;">
+          <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=24&duration=3500&pause=1000&color=00FFCC&center=true&vCenter=true&width=500&lines=Hi%2C+I'm+${encodeURIComponent(fullName)}!;${encodeURIComponent(role)};Welcome+to+my+digital+universe!" alt="Typing SVG" />
+          <p style="margin-top: 10px; display: flex; justify-content: center; gap: 10px;">
+            <span style="background: #00FFCC; color: #0b0f19; font-weight: bold; padding: 4px 8px; border-radius: 4px; font-size: 11px;">Followers (Dynamic Badge)</span>
+            <span style="background: #FF007F; color: #white; font-weight: bold; padding: 4px 8px; border-radius: 4px; font-size: 11px;">Stars (Dynamic Badge)</span>
+          </p>
+          <div style="margin: 20px 0;">
+            <img src="${gifPath}" alt="Featured Workspace Banner" style="width: 85%; max-width: 700px; border-radius: 12px; border: 2px solid #00FFCC; box-shadow: 0px 0px 20px rgba(0, 255, 204, 0.4);" onerror="this.src='https://placehold.co/600x300/111622/c9d1d9?text=Drop+Your+GIF+Here'" />
+          </div>
+        </div>
+        <hr style="border-color: #30363d; margin: 24px 0;" />
+        <h2>⚡ About Me</h2>
+        <pre style="background: #161b22; padding: 16px; border-radius: 6px; border: 1px solid #30363d; font-family: monospace; font-size: 13px; color: #e6edf3;">
+identity:
+  name: ${fullName}
+  role: ${role}
+  location: ${location}
+status:
+  current_project: "${currentProject}"
+  learning: "${learning}"
+  collaboration: "${collab}"
+        </pre>
+        <ul style="margin: 15px 0; padding-left: 20px;">
+          <li>👋 <b>Greeting:</b> Welcome! I'm a developer focused on designing premium user interfaces and robust technical implementations.</li>
+          <li>🎯 <b>Mission:</b> Building clean, responsive, and performance-driven applications.</li>
+          ${currentProject ? `<li>🔭 <b>Current Project:</b> ${currentProject}</li>` : ''}
+          ${learning ? `<li>🌱 <b>Currently Learning:</b> ${learning}</li>` : ''}
+          ${collab ? `<li>🤝 <b>Looking to Collaborate on:</b> ${collab}</li>` : ''}
+        </ul>
+        <hr style="border-color: #30363d; margin: 24px 0;" />
+        <h2>🛠️ Tech Stack & Capabilities</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px; margin: 15px 0;">
+          <img src="https://skillicons.dev/icons?i=${techList || 'js,ts,react'}" alt="My Tech Stack" style="max-width: 100%;" />
+        </div>
+        <hr style="border-color: #30363d; margin: 24px 0;" />
+        <h2>📊 Analytics & Metrics</h2>
+        <div style="display: flex; flex-direction: column; gap: 15px; align-items: center; margin: 20px 0;">
+          <div style="display: flex; gap: 15px; width: 100%; justify-content: center;">
+            <img src="https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&theme=${theme}&hide_border=false&count_private=true&include_all_commits=true" alt="GitHub Stats" style="width: 45%; max-width: 400px; border-radius: 6px;" onerror="this.style.display='none'" />
+            <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=${username}&layout=compact&theme=${theme}&hide_border=false" alt="Top Langs" style="width: 45%; max-width: 400px; border-radius: 6px;" onerror="this.style.display='none'" />
+          </div>
+          <img src="https://github-readme-streak-stats.herokuapp.com/?user=${username}&theme=${theme}&hide_border=false" alt="GitHub Streak" style="width: 90%; max-width: 800px; border-radius: 6px;" onerror="this.style.display='none'" />
+        </div>
+        <hr style="border-color: #30363d; margin: 24px 0;" />
+        <h2>🤝 Let's Connect</h2>
+        <div style="display: flex; justify-content: center; gap: 10px; margin: 20px 0; flex-wrap: wrap;">
+          ${linkedin ? `<span style="background:#0A66C2; color:#fff; padding:6px 12px; border-radius:4px; font-weight:bold; font-size:12px;">LinkedIn</span>` : ''}
+          ${twitter ? `<span style="background:#1DA1F2; color:#fff; padding:6px 12px; border-radius:4px; font-weight:bold; font-size:12px;">Twitter</span>` : ''}
+          ${portfolio ? `<span style="background:#FF5722; color:#fff; padding:6px 12px; border-radius:4px; font-weight:bold; font-size:12px;">Portfolio</span>` : ''}
+          ${email ? `<span style="background:#D14836; color:#fff; padding:6px 12px; border-radius:4px; font-weight:bold; font-size:12px;">Email</span>` : ''}
+          ${discord ? `<span style="background:#5865F2; color:#fff; padding:6px 12px; border-radius:4px; font-weight:bold; font-size:12px;">Discord</span>` : ''}
+        </div>
+      `;
+      document.getElementById('rendered-preview').innerHTML = htmlPreview;
+    }
+
+    // Initial load
+    generate();
+  </script>
+</body>
+</html>
