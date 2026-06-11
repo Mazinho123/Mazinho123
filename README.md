@@ -11,15 +11,8 @@ Instructions:
 <div align="center">
   
   <!-- Typing SVG Banner -->
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=24&duration=3500&pause=1000&color=00FFCC&center=true&vCenter=true&width=500&lines=Hi%2C+I'm+Devroop!;Full+Stack+Developer;Welcome+to+my+github+profile!" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=24&duration=3500&pause=1000&color=00FFCC&center=true&vCenter=true&width=500&lines=Hi%2C+I'm+Devroop!;AI%2FML+Developer+%26+Data+Analyst;Welcome+to+my+github+profile!" alt="Typing SVG" />
 
-  <p align="center">
-    <!-- Profile views, GitHub stars badges -->
-    <img src="https://img.shields.io/github/followers/Mazinho123?label=Followers&style=for-the-badge&color=00FFCC&logo=github" alt="Followers" />
-    <img src="https://img.shields.io/github/stars/Mazinho123?label=Stars&style=for-the-badge&color=FF007F&logo=github" alt="Total Stars" />
-  </p>
-
-  <br />
 
   <!-- 🖼️ CUSTOM GIF / BANNER SECTION -->
   <!-- Replace the path below with your own custom GIF/image file name -->
@@ -27,9 +20,7 @@ Instructions:
     <img src="./assets/edward-elric-metal-arm.gif" alt="Developer Workspace Banner" width="85%" style="border-radius: 12px; border: 2px solid #00FFCC; box-shadow: 0px 0px 20px rgba(0, 255, 204, 0.4);" />
   </a>
 
-  <p align="center">
-    <sub><i>💡 Pro-Tip: Replace the image path above with your own uploaded GIF (e.g., <code>./assets/your-gif.gif</code>) to customize this section!</i></sub>
-  </p>
+ 
 
 </div>
 
@@ -40,40 +31,27 @@ Instructions:
 ```yaml
 identity:
   name: Devroop Dasgupta
-  role: Full-stack Software Engineer
+  role: AI/ML Developer & Data Analyst
   location: India
-  interests: [Software Development, Web Applications]
-status:
-  current_project: "Building a next-gen developer portfolio 🚀"
-  learning: "Rust, WebGPU, and Advanced CSS Animations"
-  collaboration: "Open-source developer tooling and SaaS applications"
+  interests: [Machine Learning, Deep Learning, Data Analytics]
+
 ```
 
-- 👋 **Greeting:** Welcome to my digital workspace! I'm a passionate developer focused on building interactive, highly performant web applications.
-- 🎯 **Mission:** To bridge the gap between robust backend architectures and beautiful, responsive user interfaces.
-- 💬 **Ask me about:** JavaScript/TypeScript, React, UI/UX animations, database optimization, or standard dev workflows.
+- 👋 **Greeting:** Welcome to my digital workspace! I'm a developer focused on designing and implementing intelligent AI/ML systems and extracting data-driven insights.
+- 🎯 **Mission:** To leverage machine learning models and analytical frameworks to solve complex, data-driven problems.
+- 💬 **Ask me about:** Python, PyTorch, machine learning algorithms, statistical data analysis, or deep learning modeling.
 - 📫 **Contact:** Drop a line on my socials below or send an email directly to **[your-email@example.com]**.
 
 ---
 
 ## 🛠️ Tech Stack & Capabilities
 
-<details open>
-  <summary><b>💻 Frontend & UI Development</b></summary>
-  <br />
-  <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=html,css,js,ts,react,nextjs,tailwind,sass,threejs,figma" alt="Frontend Tech" />
-  </a>
-</details>
-
-<br />
 
 <details open>
-  <summary><b>⚙️ Backend, Databases & Dev Tooling</b></summary>
+  <summary><b>🤖 AI/ML Models, Data Engineering & Tools</b></summary>
   <br />
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=nodejs,express,mongodb,postgres,redis,python,docker,git,github,vscode" alt="Backend Tech" />
-  </a>
+  <img src="https://skillicons.dev/icons?i=py,pytorch,tensorflow,sklearn,r,fastapi,postgres,docker,git,github,vscode" alt="AI/ML Tech" />
 </details>
 
 ---
@@ -81,31 +59,17 @@ status:
 ## 📊 Analytics & Metrics
 
 <div align="center">
-  <table border="0">
-    <tr>
-      <td width="50%" align="center">
-        <!-- GitHub Stats Card -->
-        <a href="https://github.com/anuraghazra/github-readme-stats">
-          <img src="https://github-readme-stats.vercel.app/api?username=Mazinho123&show_icons=true&theme=tokyonight&hide_border=false&count_private=true&include_all_commits=true" alt="GitHub Stats" width="100%" />
-        </a>
-      </td>
-      <td width="50%" align="center">
-        <!-- Top Languages Card -->
-        <a href="https://github.com/anuraghazra/github-readme-stats">
-          <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Mazinho123&layout=compact&theme=tokyonight&hide_border=false" alt="Top Langs" width="100%" />
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" align="center">
-        <!-- GitHub Streak Stats -->
-        <br />
-        <a href="https://github.com/danielcranney/readme-generator">
-          <img src="https://github-readme-streak-stats.herokuapp.com/?user=Mazinho123&theme=tokyonight&hide_border=false" alt="GitHub Streak" width="95%" />
-        </a>
-      </td>
-    </tr>
-  </table>
+  <!-- Top Languages Card -->
+  <a href="https://github.com/Mazinho123">
+    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Mazinho123&layout=compact&theme=tokyonight&hide_border=false&cache_seconds=1800" alt="Top Languages" width="48%" />
+  </a>
+  
+  <br /><br />
+
+  <!-- GitHub Streak Stats -->
+  <a href="https://github.com/Mazinho123">
+    <img src="https://github-readme-streak-stats.herokuapp.com/?user=Mazinho123&theme=tokyonight&hide_border=false&cache_seconds=1800" alt="GitHub Streak" width="95%" />
+  </a>
 </div>
 
 ---
@@ -121,7 +85,5 @@ status:
 
 ---
 
-<div align="center">
-  <img src="./assets/edward-elric-metal-arm.gif" width="100%" />
-  <p><sub>🚀 Designed with passion by Devroop Dasgupta. Last updated: 2026.</sub></p>
-</div>
+
+
