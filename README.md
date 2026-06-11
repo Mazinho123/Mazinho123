@@ -40,7 +40,7 @@ identity:
 - 👋 **Greeting:** Welcome to my digital workspace! I'm a developer focused on designing and implementing intelligent AI/ML systems and extracting data-driven insights.
 - 🎯 **Mission:** To leverage machine learning models and analytical frameworks to solve complex, data-driven problems.
 - 💬 **Ask me about:** Python, PyTorch, machine learning algorithms, statistical data analysis, or deep learning modeling.
-- 📫 **Contact:** Drop a line on my socials below or send an email directly to **[your-email@example.com]**.
+- 📫 **Contact:** Drop a line on my socials below or send an email directly to **[dasguptadevroop@gmail.com]**.
 
 ---
 
