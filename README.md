@@ -51,7 +51,7 @@ identity:
   <summary><b>🤖 AI/ML Models, Data Engineering & Tools</b></summary>
   <br />
   <a href="https://skillicons.dev">
-  <img src="https://skillicons.dev/icons?i=py,pytorch,tensorflow,sklearn,r,fastapi,postgres,docker,git,github,vscode" alt="AI/ML Tech" />
+  <img src="https://skillicons.dev/icons?i=py,pytorch,tensorflow,sklearn,fastapi,postgres,docker,git,github,vscode" alt="AI/ML Tech" />
 </details>
 
 ---
