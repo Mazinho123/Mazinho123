@@ -58,13 +58,7 @@ identity:
 
 ## 📊 Analytics & Metrics
 
-<div align="center">
-  <!-- Top Languages Card -->
-  <a href="https://github.com/Mazinho123">
-    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Mazinho123&layout=compact&theme=tokyonight&hide_border=false&cache_seconds=1800" alt="Top Languages" width="48%" />
-  </a>
-  
-  <br /><br />
+
 
   <!-- GitHub Streak Stats -->
   <a href="https://github.com/Mazinho123">
