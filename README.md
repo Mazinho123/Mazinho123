@@ -29,7 +29,7 @@ Instructions:
 ## ⚡ About Me
 
 ```yaml
-identity:
+Identity:
   name: Devroop Dasgupta
   role: AI/ML Developer & Data Analyst
   location: India
